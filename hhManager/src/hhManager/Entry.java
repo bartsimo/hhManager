@@ -1,8 +1,12 @@
-package hhManager;
+package hhManager.Entry;
 import java.util.Date;
 
 /**
  * PAT or SSH on GitHub is actually needed!
+ * 
+ * Files saved under Git
+ * https://www.java-forum.org/thema/haushaltsbuch.161060/
+ * 
  * @author (Simon) 
  * @version (26.03.2022)
  * Hierdrin: Elemente für LinkedList
@@ -17,7 +21,15 @@ public class Entry
     private Date _datum;
 
     /**
-     * Konstruktor fuer Objekte der Klasse Entry
+     * Leerer Konstruktor fuer Objekte der Klasse Entry (z.B. Nutzung aus anderer Klasse)
+     */
+    public Entry()
+    {
+
+    }
+    
+    /**
+     * Überladener Konstruktor fuer Objekte der Klasse Entry (z.B. Objekterzeugung über CommandLine)
      */
     public Entry(double betrag, String kategorie, boolean einnahme, String details)
     {
