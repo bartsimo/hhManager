@@ -4,32 +4,32 @@ import java.util.*;
 
 public class makehhBuchObject  
 {
-	List<Entry> hhBuch;
-
+	private static List<Entry> hhBuch;
 	
+	public static LinkedList<Entry> hhBuchFromHD()
+	{
+		BufferedReader br = new BufferedReader(new FileReader("/home/simon/eclipse-workspace/hhBuch.csv"));  
+		hhBuch = new LinkedList<Entry>();
+		String lin = "";
+		while ((lin = br.readLine()) != null)
+		{  
+			String[] entryCsv = lin.split(",");  
+			Entry entryObj = new Entry();  
+			
+			Integer betrag = Integer.valueOf(entryCsv[0]);
+			
+			
+			entryObj.setzeBetrag(betrag);  
+  	        entryObj.setSurname(entryCsv[1]);  
+	        entryObj.setShoeSize(entryCsv[2]);  
+	        entryObj.setGender(entryCsv[3]); 
+	       
+	        hhBuch.add(entryObj);
+	    } 
+	}
 	
-	BufferedReader br = new BufferedReader(new FileReader("/home/simon/eclipse-workspace/hhBuch.csv"));  
-	hhBuch = new LinkedList<Entry>();
-	String lin = "";
-	while ((lin = br.readLine()) != null) {  
-	       // split on comma(',')  
-	       String[] entryCsv = lin.split(",");  
-
-	       // create new entry object to store values  
-	       Entry entryObj = new Entry();  
-
-	       // add values from csv to entry object  
-	       entryObj.setName(personCsv[0]);  
-	       entryObj.setSurname(personCsv[1]);  
-	       entryObj.setShoeSize(personCsv[2]);  
-	       entryObj.setGender(personCsv[3]); 
-
-	       // adding car objects to a list  
-	       hhBuch.add(entryObj);         
-	} 
 }
 
-}
 
 /* To do: write appropriate methods in class Entry
  * Get it to compile
