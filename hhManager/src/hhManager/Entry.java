@@ -81,6 +81,15 @@ public class Entry
     }
     
     /**
+     * Setze Betrag des Eintrags
+     * @param int betrag (Integer?) 
+     */
+    public void setzeBetrag(int betrag)
+    {
+        this._betrag = betrag;
+    }
+    
+    /**
      * Erzeugt eine Stringrepraesentation fuer den Eintrag mit Betrag, Kategorie, Einnahme, Details und Datum 
      * .
      */
