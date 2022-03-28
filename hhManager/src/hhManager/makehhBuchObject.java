@@ -52,7 +52,7 @@ public class makehhBuchObject
 }
 
 
-/* To do: write appropriate methods in class Entry
+/* To do: Testing (does that show in activities?)
  * Get it to compile
  * How to make this class interact with entry?
  * https://stackoverflow.com/questions/22485041/how-to-easily-process-csv-file-to-listmyclass
