@@ -1,4 +1,4 @@
-package hhManager.Entry;
+package hhManager;
 import java.util.Date;
 
 /**
@@ -16,7 +16,7 @@ public class Entry
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
     private int _betrag;
     private String _kategorie;
-    private boolean _einnahme;
+    private String _einnahme;
     private String _details;
     private Date _datum;
 
@@ -31,7 +31,7 @@ public class Entry
     /**
      * Überladener Konstruktor fuer Objekte der Klasse Entry (z.B. Objekterzeugung über CommandLine)
      */
-    public Entry(double betrag, String kategorie, boolean einnahme, String details)
+    public Entry(double betrag, String kategorie, String einnahme, String details)
     {
         _betrag = (int) betrag;
         _kategorie = kategorie;
@@ -59,7 +59,7 @@ public class Entry
     /**
      * @return Einnahme oder Ausgabe
      */
-    public boolean istEinnahme()
+    public String istEinnahme()
     {
         return _einnahme;
     }
@@ -87,6 +87,38 @@ public class Entry
     public void setzeBetrag(int betrag)
     {
         this._betrag = betrag;
+    }
+    
+    /**
+     * Setze Kategorie des Eintrags
+     * @param String kategorie
+     */
+    public void setzeKategorie(String kategorie)
+    {
+        this._kategorie = kategorie;
+    }
+    
+    /**
+     * Setze Kategorie des Eintrags
+     * @param String kategorie
+     */
+    public void setzeIstEinnahme(String einnahme)
+    {
+        this._einnahme = einnahme;
+    }
+    
+    /**
+     * Setze Kategorie des Eintrags
+     * @param String kategorie
+     */
+    public void setzeDetails(String details)
+    {
+        this._details = details;
+    }
+    
+    public void setzeDatum(Date datum)
+    {
+        this._datum = datum;
     }
     
     /**
