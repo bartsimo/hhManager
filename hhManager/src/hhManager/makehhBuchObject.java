@@ -1,31 +1,52 @@
 package hhManager;
 import java.io.*;
 import java.util.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class makehhBuchObject  
 {
-	private static List<Entry> hhBuch;
+	private static LinkedList<Entry> hhBuch;
 	
 	public static LinkedList<Entry> hhBuchFromHD()
 	{
-		BufferedReader br = new BufferedReader(new FileReader("/home/simon/eclipse-workspace/hhBuch.csv"));  
-		hhBuch = new LinkedList<Entry>();
-		String lin = "";
-		while ((lin = br.readLine()) != null)
-		{  
-			String[] entryCsv = lin.split(",");  
-			Entry entryObj = new Entry();  
+		try (BufferedReader br = new BufferedReader(new FileReader("/home/simon/eclipse-workspace/hhBuch.csv"))) {
+			hhBuch = new LinkedList<Entry>();
+			String lin = "";
+			while ((lin = br.readLine()) != null)
+			{  
+				String[] entryCsv = lin.split(",");  
+				Entry entryObj = new Entry();  
+				
+				Integer betrag = Integer.valueOf(entryCsv[0]);
+				
+				DateFormat df = new SimpleDateFormat("dd.MM.yyyy"); 
+				Date entryDate;
+				try {
+					entryDate = df.parse(entryCsv[4]);
+					entryObj.setzeDatum(entryDate); 
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				
+				entryObj.setzeBetrag(betrag);  
+			    entryObj.setzeKategorie(entryCsv[1]);  
+			    entryObj.setzeIstEinnahme(entryCsv[2]);  
+			    entryObj.setzeDetails(entryCsv[3]); 
+			    
+			   
+			    hhBuch.add(entryObj);
+			}
+			return hhBuch;
 			
-			Integer betrag = Integer.valueOf(entryCsv[0]);
-			
-			
-			entryObj.setzeBetrag(betrag);  
-  	        entryObj.setSurname(entryCsv[1]);  
-	        entryObj.setShoeSize(entryCsv[2]);  
-	        entryObj.setGender(entryCsv[3]); 
-	       
-	        hhBuch.add(entryObj);
-	    } 
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
+			return null;
+		}  
+		
 	}
 	
 }
