@@ -125,6 +125,8 @@ public class Entry
      * Erzeugt eine Stringrepraesentation fuer den Eintrag mit Betrag, Kategorie, Einnahme, Details und Datum 
      * .
      */
+    
+    @Override
     public String toString()
     {
         return _betrag + "    " + _kategorie + "    " + _einnahme + "    " + _details + "   " +_datum;

@@ -6,9 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class makehhBuchObject  
+public class MakehhBuchObject  
 {
-	private static LinkedList<Entry> hhBuch;
+	public static LinkedList<Entry> hhBuch;
 	
 	public static LinkedList<Entry> hhBuchFromHD()
 	{
@@ -48,6 +48,7 @@ public class makehhBuchObject
 		}  
 		
 	}
+
 	
 }
 
