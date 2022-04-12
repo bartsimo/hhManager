@@ -2,9 +2,6 @@ package hhManager;
 import java.util.Date;
 
 /**
- * PAT or SSH on GitHub is actually needed!
- * 
- * Files saved under Git
  * https://www.java-forum.org/thema/haushaltsbuch.161060/
  * 
  * @author (Simon) 
@@ -16,7 +13,7 @@ public class Entry
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
     private int _betrag;
     private String _kategorie;
-    private String _einnahme;
+    private boolean _einnahme;
     private String _details;
     private Date _datum;
 
@@ -31,7 +28,7 @@ public class Entry
     /**
      * Überladener Konstruktor fuer Objekte der Klasse Entry (z.B. Objekterzeugung über CommandLine)
      */
-    public Entry(double betrag, String kategorie, String einnahme, String details)
+    public Entry(double betrag, String kategorie, boolean einnahme, String details)
     {
         _betrag = (int) betrag;
         _kategorie = kategorie;
@@ -59,7 +56,7 @@ public class Entry
     /**
      * @return Einnahme oder Ausgabe
      */
-    public String istEinnahme()
+    public boolean istEinnahme()
     {
         return _einnahme;
     }
@@ -102,7 +99,7 @@ public class Entry
      * Setze Kategorie des Eintrags
      * @param String kategorie
      */
-    public void setzeIstEinnahme(String einnahme)
+    public void setzeIstEinnahme(boolean einnahme)
     {
         this._einnahme = einnahme;
     }
