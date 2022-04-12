@@ -3,6 +3,7 @@ package hhManager;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ public class HaushaltsBuch
     public static void main(String[] args) throws Exception
     {
         LeseCSV();
+        fuegeHinzu();
     }
 
     public static LinkedList<Entry> LeseCSV() throws Exception
@@ -68,13 +70,11 @@ public class HaushaltsBuch
             entryObj.setzeDatum(datum);
 
             hhBuch = new LinkedList<Entry>();
-            System.out.println(entryObj.gibBetrag());
-            System.out.println(entryObj.gibKategorie());
-            System.out.println(entryObj.istEinnahme());
-            System.out.println(entryObj.gibDetails());
-            System.out.println(entryObj.gibDatum());
+            hhBuch.add(entryObj);
         }
         sc.close(); //closes the scanner  
+
+        System.out.println(Arrays.toString(hhBuch.toArray()));
 
         return hhBuch;
 
@@ -83,13 +83,43 @@ public class HaushaltsBuch
     //To do: Überladene Methode fuegeHinzu mit formalen Parametern schreiben, 
     //welche GUI Input direkt als aktuelle Parameter übergibt.
 
-    public static void fuegeHinzu()
+    public static void fuegeHinzu() throws Exception
     {
         Entry entryObj = new Entry();
+
         Scanner sc = new Scanner(System.in);
-        System.out.print("Wie teuer war es?");
+
+        System.out.print("Wie hoch war der Betrag?");
         int betrag = sc.nextInt();
+        sc.nextLine();
         entryObj.setzeBetrag(betrag);
+
+        System.out.print("Wo oder was hast du gekauft?");
+        String kategorie = sc.nextLine();
+        entryObj.setzeKategorie(kategorie);
+
+        System.out.print("War es eine Einnahme oder eine Ausgabe?");
+        boolean einnahme = sc.nextBoolean();
+        sc.nextLine();
+        entryObj.setzeIstEinnahme(einnahme);
+
+        System.out.print("Was möchtest du an Details mitteilen?");
+        String details = sc.nextLine();
+        entryObj.setzeDetails(details);
+
+        System.out.print("Wann geschah die Transaktion?");
+        String str = sc.nextLine();
+        Date datum = convertDate(str);
+        entryObj.setzeDatum(datum);
+
+        sc.close(); //closes the scanner  
+
+        System.out.println(entryObj.gibBetrag());
+        System.out.println(entryObj.gibKategorie());
+        System.out.println(entryObj.istEinnahme());
+        System.out.println(entryObj.gibDetails());
+        System.out.println(entryObj.gibDatum());
+
     }
 
     private static int convertInt(String str)
