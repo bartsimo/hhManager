@@ -1,3 +1,8 @@
+/* To do:
+ * javadoc
+ * Testklassen
+ */
+
 package hhManager;
 
 import java.io.File;
@@ -12,17 +17,26 @@ import java.util.regex.Pattern;
 public class HaushaltsBuch
 {
 
-    public static LinkedList<Entry> hhBuch;
+    private LinkedList<Entry> hhBuch;
+
+    public HaushaltsBuch()
+    {
+
+        hhBuch = new LinkedList<Entry>();
+    }
 
     public static void main(String[] args) throws Exception
     {
-        LeseCSV();
-        fuegeHinzu();
+        HaushaltsBuch buch = new HaushaltsBuch();
+        buch.leseCSV();
+        buch.fuegeHinzuTerminal();
+        System.out.println(Arrays.toString(buch.hhBuch.toArray()));
     }
 
-    public static LinkedList<Entry> LeseCSV() throws Exception
+    //To do: AKTUELLSTE CSV-Datei soll gelesen werden
+    public LinkedList<Entry> leseCSV() throws Exception
     {
-        //parsing a CSV file into Scanner class constructor  
+        //parsing a CSV file into Scanner class constructor
         Scanner sc = new Scanner(
                 new File("/home/simon/eclipse-workspace/hhBuch.csv"));
         sc.useDelimiter(",");
@@ -69,21 +83,25 @@ public class HaushaltsBuch
             System.out.println("Date value = " + datum);
             entryObj.setzeDatum(datum);
 
-            hhBuch = new LinkedList<Entry>();
             hhBuch.add(entryObj);
         }
         sc.close(); //closes the scanner  
-
-        System.out.println(Arrays.toString(hhBuch.toArray()));
 
         return hhBuch;
 
     }
 
+    public void schreibeCSV()
+    {
+        //To do: Implement writer
+        // https://examples.javacodegeeks.com/core-java/writeread-csv-files-in-java-example/
+        // Wo wird unter welchem Namen gespeichert?
+    }
+
     //To do: Überladene Methode fuegeHinzu mit formalen Parametern schreiben, 
     //welche GUI Input direkt als aktuelle Parameter übergibt.
 
-    public static void fuegeHinzu() throws Exception
+    public void fuegeHinzuTerminal() throws Exception
     {
         Entry entryObj = new Entry();
 
@@ -112,17 +130,20 @@ public class HaushaltsBuch
         Date datum = convertDate(str);
         entryObj.setzeDatum(datum);
 
+        hhBuch.add(entryObj);
+
         sc.close(); //closes the scanner  
 
+        /*
         System.out.println(entryObj.gibBetrag());
         System.out.println(entryObj.gibKategorie());
         System.out.println(entryObj.istEinnahme());
         System.out.println(entryObj.gibDetails());
         System.out.println(entryObj.gibDatum());
-
+        */
     }
 
-    private static int convertInt(String str)
+    private int convertInt(String str)
     {
         int val = 0;
         System.out.println("String = " + str);
@@ -142,7 +163,7 @@ public class HaushaltsBuch
         return val;
     }
 
-    private static Date convertDate(String str) throws Exception
+    private Date convertDate(String str) throws Exception
     {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Date entryDate;
@@ -150,7 +171,7 @@ public class HaushaltsBuch
         return entryDate;
     }
 
-    private static boolean convertBoolEinnahnme(String str) throws Exception
+    boolean convertBoolEinnahnme(String str) throws Exception
     {
         boolean einnahme = false;
         String REGEX = "[Jj]a*";
