@@ -1,11 +1,14 @@
 /* To do:
  * javadoc
  * Testklassen
+ * schreibeCSV testen
  */
 
 package hhManager;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -91,11 +94,36 @@ public class HaushaltsBuch
 
     }
 
-    public void schreibeCSV()
+    public void schreibeCSV(String dateiname) throws IOException
     {
         //To do: Implement writer
         // https://examples.javacodegeeks.com/core-java/writeread-csv-files-in-java-example/
         // Wo wird unter welchem Namen gespeichert?
+        String komma = ",";
+        String neueZeile = "\n";
+        String ersteZeile = "_betrag, _kategorie, _einnahme, _details, _datum";
+
+        FileWriter fw = new FileWriter(dateiname);
+        fw.append(ersteZeile.toString());
+        fw.append(neueZeile);
+        for (Entry entryobj : hhBuch)
+        {
+            fw.append(String.valueOf(entryobj.gibBetrag()));
+            fw.append(komma);
+            fw.append(entryobj.gibKategorie());
+            fw.append(komma);
+            fw.append(String.valueOf(entryobj.istEinnahme()));
+            fw.append(komma);
+            fw.append(entryobj.gibDetails());
+            fw.append(komma);
+            fw.append(entryobj.gibDatum()
+                .toString());
+            fw.append(neueZeile);
+
+        }
+
+        fw.flush();
+        fw.close();
     }
 
     //To do: Überladene Methode fuegeHinzu mit formalen Parametern schreiben, 
