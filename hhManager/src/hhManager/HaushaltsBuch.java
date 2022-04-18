@@ -1,7 +1,7 @@
 /* To do:
  * javadoc
  * Testklassen
- * schreibeCSV testen
+ * AKTUELLSTE CSV-Datei soll gelesen werden
  */
 
 package hhManager;
@@ -34,9 +34,9 @@ public class HaushaltsBuch
         buch.leseCSV();
         buch.fuegeHinzuTerminal();
         System.out.println(Arrays.toString(buch.hhBuch.toArray()));
+        buch.schreibeCSV("appended.csv");
     }
 
-    //To do: AKTUELLSTE CSV-Datei soll gelesen werden
     public LinkedList<Entry> leseCSV() throws Exception
     {
         //parsing a CSV file into Scanner class constructor
@@ -102,8 +102,9 @@ public class HaushaltsBuch
         String komma = ",";
         String neueZeile = "\n";
         String ersteZeile = "_betrag, _kategorie, _einnahme, _details, _datum";
+        String dir = "/home/simon/eclipse-workspace";
 
-        FileWriter fw = new FileWriter(dateiname);
+        FileWriter fw = new FileWriter(new File(dir, dateiname));
         fw.append(ersteZeile.toString());
         fw.append(neueZeile);
         for (Entry entryobj : hhBuch)
