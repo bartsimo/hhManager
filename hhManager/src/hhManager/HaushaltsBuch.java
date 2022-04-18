@@ -1,7 +1,8 @@
 /* To do:
  * javadoc
  * Testklassen
- * AKTUELLSTE CSV-Datei soll gelesen werden
+ * 
+ * AKTUELLSTE CSV-Datei soll gelesen werden --> https://stackoverflow.com/questions/285955/java-get-the-newest-file-in-a-directory
  */
 
 package hhManager;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -34,7 +36,7 @@ public class HaushaltsBuch
         buch.leseCSV();
         buch.fuegeHinzuTerminal();
         System.out.println(Arrays.toString(buch.hhBuch.toArray()));
-        buch.schreibeCSV("appended.csv");
+        buch.schreibeCSV(getDateAsString());
     }
 
     public LinkedList<Entry> leseCSV() throws Exception
@@ -200,7 +202,7 @@ public class HaushaltsBuch
         return entryDate;
     }
 
-    boolean convertBoolEinnahnme(String str) throws Exception
+    private boolean convertBoolEinnahnme(String str) throws Exception
     {
         boolean einnahme = false;
         String REGEX = "[Jj]a*";
@@ -210,6 +212,16 @@ public class HaushaltsBuch
             einnahme = true;
         }
         return einnahme;
+    }
+
+    private static String getDateAsString()
+    {
+        String pattern = "dd.MM.yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+        Date heute = Calendar.getInstance()
+            .getTime();
+        String jetztAlsString = df.format(heute);
+        return jetztAlsString + ".csv";
     }
 
 }
