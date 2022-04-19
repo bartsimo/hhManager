@@ -1,4 +1,6 @@
 package hhManager;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -24,11 +26,12 @@ public class Entry
     {
 
     }
-    
+
     /**
      * Überladener Konstruktor fuer Objekte der Klasse Entry (z.B. Objekterzeugung über CommandLine)
      */
-    public Entry(double betrag, String kategorie, boolean einnahme, String details)
+    public Entry(double betrag, String kategorie, boolean einnahme,
+            String details)
     {
         _betrag = (int) betrag;
         _kategorie = kategorie;
@@ -36,7 +39,7 @@ public class Entry
         _details = details;
         _datum = new Date();
     }
-    
+
     /**
      * @return den Betrag des Eintrags
      */
@@ -44,7 +47,7 @@ public class Entry
     {
         return _betrag;
     }
-    
+
     /**
      * @return die Kategorie des Eintrags
      */
@@ -52,7 +55,7 @@ public class Entry
     {
         return _kategorie;
     }
-    
+
     /**
      * @return Einnahme oder Ausgabe
      */
@@ -60,7 +63,7 @@ public class Entry
     {
         return _einnahme;
     }
-    
+
     /**
      * @return Details des Eintrags
      */
@@ -68,15 +71,17 @@ public class Entry
     {
         return _details;
     }
-    
+
     /**
      * @return Datum des Eintrags 
      */
-    public Date gibDatum()
+    public String gibDatum()
     {
-        return _datum;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String strDate = sdf.format(_datum);
+        return strDate;
     }
-    
+
     /**
      * Setze Betrag des Eintrags
      * @param int betrag (Integer?) 
@@ -85,7 +90,7 @@ public class Entry
     {
         this._betrag = betrag;
     }
-    
+
     /**
      * Setze Kategorie des Eintrags
      * @param String kategorie
@@ -94,7 +99,7 @@ public class Entry
     {
         this._kategorie = kategorie;
     }
-    
+
     /**
      * Setze Kategorie des Eintrags
      * @param String kategorie
@@ -103,7 +108,7 @@ public class Entry
     {
         this._einnahme = einnahme;
     }
-    
+
     /**
      * Setze Kategorie des Eintrags
      * @param String kategorie
@@ -112,24 +117,22 @@ public class Entry
     {
         this._details = details;
     }
-    
+
     public void setzeDatum(Date datum)
     {
         this._datum = datum;
     }
-    
+
     /**
      * Erzeugt eine Stringrepraesentation fuer den Eintrag mit Betrag, Kategorie, Einnahme, Details und Datum 
      * .
      */
-    
+
     @Override
     public String toString()
     {
-        return _betrag + "    " + _kategorie + "    " + _einnahme + "    " + _details + "   " +_datum;
+        return _betrag + "    " + _kategorie + "    " + _einnahme + "    "
+                + _details + "   " + _datum;
     }
-    
-
 
 }
-

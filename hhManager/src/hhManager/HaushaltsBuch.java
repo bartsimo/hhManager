@@ -1,8 +1,16 @@
 /* To do:
- * javadoc
- * Testklassen
+ * Alle Schnittstellen (public-Methoden) müssen mit Schnittstellenkommentaren dokumentiert 
+ * werden. Die Parameter müssen mit @param und die Rückgabewerte mit @return dokummentiert 
+ * werden.
+ * Shortcut: /**
  * 
- * AKTUELLSTE CSV-Datei soll gelesen werden --> https://stackoverflow.com/questions/285955/java-get-the-newest-file-in-a-directory
+ * 
+ * Testklassen (zu jeder Klasse eine Testklasse, die die Nachbedingungen (@require) überprüft!)
+ * javadoc
+ * 
+
+ * Scanner-Terminal-Input benutzerfreundlicher machen (z.B. boolean)
+ * 
  */
 
 package hhManager;
@@ -22,28 +30,37 @@ import java.util.regex.Pattern;
 public class HaushaltsBuch
 {
 
-    private LinkedList<Entry> hhBuch;
+    private static LinkedList<Entry> _hhBuch;
+    private static HaushaltsBuch _buch;
 
     public HaushaltsBuch()
     {
 
-        hhBuch = new LinkedList<Entry>();
+        _hhBuch = new LinkedList<Entry>();
     }
 
     public static void main(String[] args) throws Exception
     {
-        HaushaltsBuch buch = new HaushaltsBuch();
-        buch.leseCSV();
-        buch.fuegeHinzuTerminal();
-        System.out.println(Arrays.toString(buch.hhBuch.toArray()));
-        buch.schreibeCSV(getDateAsString());
+
+        leseCSV();
+        _buch.fuegeHinzuTerminal();
+        System.out.println(Arrays.toString(HaushaltsBuch._hhBuch.toArray()));
+        _buch.schreibeCSV(getDateAsString());
+
+        //buch.getLastModified();
     }
 
-    public LinkedList<Entry> leseCSV() throws Exception
+    /**
+     * 
+     * 
+     * @return Haushaltsbuch als LinkedList Objekt mit Elementen des Typs Entry
+     * @throws Exception
+     */
+    public static LinkedList<Entry> leseCSV() throws Exception
     {
+        _buch = new HaushaltsBuch();
         //parsing a CSV file into Scanner class constructor
-        Scanner sc = new Scanner(
-                new File("/home/simon/eclipse-workspace/hhBuch.csv"));
+        Scanner sc = new Scanner(new File(getLastModified()));
         sc.useDelimiter(",");
         String line = "";
 
@@ -59,17 +76,6 @@ public class HaushaltsBuch
                 continue;
             }
             String[] parts = line.split(",");
-            /*for(int i = 0; i < parts.length; i++) {   
-            	System.out.println(parts[i]);    
-            	}
-            	
-            
-            System.out.println(parts[0]);
-            System.out.println(parts[1]);
-            System.out.println(parts[2]);
-            System.out.println(parts[3]);
-            System.out.println(parts[4]);
-            */
 
             Entry entryObj = new Entry();
 
@@ -88,28 +94,30 @@ public class HaushaltsBuch
             System.out.println("Date value = " + datum);
             entryObj.setzeDatum(datum);
 
-            hhBuch.add(entryObj);
+            _hhBuch.add(entryObj);
         }
         sc.close(); //closes the scanner  
 
-        return hhBuch;
+        return _hhBuch;
 
     }
 
+    /**
+     *
+     * @param dateiname
+     * @throws IOException
+     */
     public void schreibeCSV(String dateiname) throws IOException
     {
-        //To do: Implement writer
-        // https://examples.javacodegeeks.com/core-java/writeread-csv-files-in-java-example/
-        // Wo wird unter welchem Namen gespeichert?
         String komma = ",";
         String neueZeile = "\n";
         String ersteZeile = "_betrag, _kategorie, _einnahme, _details, _datum";
-        String dir = "/home/simon/eclipse-workspace";
+        String dir = "/home/simon/eclipse-workspace/HaushaltsbuchCSVs";
 
         FileWriter fw = new FileWriter(new File(dir, dateiname));
         fw.append(ersteZeile.toString());
         fw.append(neueZeile);
-        for (Entry entryobj : hhBuch)
+        for (Entry entryobj : _hhBuch)
         {
             fw.append(String.valueOf(entryobj.gibBetrag()));
             fw.append(komma);
@@ -119,8 +127,7 @@ public class HaushaltsBuch
             fw.append(komma);
             fw.append(entryobj.gibDetails());
             fw.append(komma);
-            fw.append(entryobj.gibDatum()
-                .toString());
+            fw.append(entryobj.gibDatum());
             fw.append(neueZeile);
 
         }
@@ -132,6 +139,10 @@ public class HaushaltsBuch
     //To do: Überladene Methode fuegeHinzu mit formalen Parametern schreiben, 
     //welche GUI Input direkt als aktuelle Parameter übergibt.
 
+    /**
+     * 
+     * @throws Exception
+     */
     public void fuegeHinzuTerminal() throws Exception
     {
         Entry entryObj = new Entry();
@@ -161,7 +172,7 @@ public class HaushaltsBuch
         Date datum = convertDate(str);
         entryObj.setzeDatum(datum);
 
-        hhBuch.add(entryObj);
+        _hhBuch.add(entryObj);
 
         sc.close(); //closes the scanner  
 
@@ -174,7 +185,7 @@ public class HaushaltsBuch
         */
     }
 
-    private int convertInt(String str)
+    private static int convertInt(String str)
     {
         int val = 0;
         System.out.println("String = " + str);
@@ -194,7 +205,7 @@ public class HaushaltsBuch
         return val;
     }
 
-    private Date convertDate(String str) throws Exception
+    private static Date convertDate(String str) throws Exception
     {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Date entryDate;
@@ -202,7 +213,7 @@ public class HaushaltsBuch
         return entryDate;
     }
 
-    private boolean convertBoolEinnahnme(String str) throws Exception
+    private static boolean convertBoolEinnahnme(String str) throws Exception
     {
         boolean einnahme = false;
         String REGEX = "[Jj]a*";
@@ -216,12 +227,36 @@ public class HaushaltsBuch
 
     private static String getDateAsString()
     {
-        String pattern = "dd.MM.yyyy HH:mm:ss";
+        String pattern = "dd.MM.yyyy_HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
         Date heute = Calendar.getInstance()
             .getTime();
         String jetztAlsString = df.format(heute);
         return jetztAlsString + ".csv";
+    }
+
+    private static String getLastModified()
+    {
+        File directory = new File(
+                "/home/simon/eclipse-workspace/HaushaltsbuchCSVs");
+        File[] files = directory.listFiles(File::isFile);
+        long lastModifiedTime = Long.MIN_VALUE;
+        File chosenFile = null;
+
+        if (files != null)
+        {
+            for (File file : files)
+            {
+                if (file.lastModified() > lastModifiedTime)
+                {
+                    chosenFile = file;
+                    lastModifiedTime = file.lastModified();
+                }
+            }
+        }
+        System.out.println(chosenFile.getAbsolutePath());
+
+        return chosenFile.getAbsolutePath();
     }
 
 }
