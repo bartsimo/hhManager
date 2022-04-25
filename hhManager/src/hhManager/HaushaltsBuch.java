@@ -27,6 +27,12 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * Konstruktor deklariert zwei Klassenvariablen: ein Haushaltsbuch und 
+ * eine LinkedList von Entries
+ * @author simon
+ *
+ */
 public class HaushaltsBuch
 {
 
@@ -51,7 +57,8 @@ public class HaushaltsBuch
     }
 
     /**
-     * 
+     * Liest eine formatierte CSV-Datei ein und gibt daraus das 
+     * resultierende Haushaltsbuch zurück.
      * 
      * @return Haushaltsbuch als LinkedList Objekt mit Elementen des Typs Entry
      * @throws Exception
@@ -59,7 +66,6 @@ public class HaushaltsBuch
     public static LinkedList<Entry> leseCSV() throws Exception
     {
         _buch = new HaushaltsBuch();
-        //parsing a CSV file into Scanner class constructor
         Scanner sc = new Scanner(new File(getLastModified()));
         sc.useDelimiter(",");
         String line = "";
@@ -103,8 +109,9 @@ public class HaushaltsBuch
     }
 
     /**
+     * Schreibt aus einem HaushaltsBuch-Objekt eine CSV-Datei.
      *
-     * @param dateiname
+     * @param dateiname als String
      * @throws IOException
      */
     public void schreibeCSV(String dateiname) throws IOException
@@ -141,6 +148,7 @@ public class HaushaltsBuch
 
     /**
      * 
+     * Fügt einen Entry über Terminal-Prompt hinzu.
      * @throws Exception
      */
     public void fuegeHinzuTerminal() throws Exception
