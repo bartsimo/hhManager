@@ -6,6 +6,7 @@
  * 
  * 
  * Testklassen (zu jeder Klasse eine Testklasse, die die Nachbedingungen (@require) überprüft!)
+ * Test mit Date: https://doc.nuxeo.com/corg/writing-tests-working-with-dates/
  * javadoc
  * 
 
@@ -213,7 +214,7 @@ public class HaushaltsBuch
         return val;
     }
 
-    private static Date convertDate(String str) throws Exception
+    static Date convertDate(String str) throws Exception
     {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Date entryDate;
