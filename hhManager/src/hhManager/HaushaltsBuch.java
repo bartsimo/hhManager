@@ -6,7 +6,7 @@
  * 
  * 
  * Testklassen (zu jeder Klasse eine Testklasse, die die Nachbedingungen (@require) überprüft!)
- * Test mit Date: https://doc.nuxeo.com/corg/writing-tests-working-with-dates/
+ * Test mit Date: https://stackoverflow.com/questions/2877532/set-date-in-a-single-line
  * javadoc
  * 
 
