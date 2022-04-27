@@ -1,6 +1,7 @@
 package hhManager;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class HaushaltsBuchTest
 {
@@ -8,8 +9,8 @@ public class HaushaltsBuchTest
     private static final String KATEGORIETEST = "Lebensmittel";
     private static final boolean EINNAHMETEST = false;
     private static final String DETAILSTEST = "teuer";
-    private static final String DATUMSTRING = "01.01.1900";
-    private static final Date DATUM = HaushaltsBuch.convertDate(DATUMSTRING);
+    private static final Date DATUMTEST = new GregorianCalendar(2022, 4, 22)
+        .getTime();
 
     private HaushaltsBuch _buchTest;
     private Entry entryTest;

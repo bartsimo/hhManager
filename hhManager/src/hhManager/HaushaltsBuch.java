@@ -214,7 +214,7 @@ public class HaushaltsBuch
         return val;
     }
 
-    static Date convertDate(String str) throws Exception
+    private static Date convertDate(String str) throws Exception
     {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Date entryDate;
