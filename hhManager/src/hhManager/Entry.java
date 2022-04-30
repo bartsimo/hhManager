@@ -31,13 +31,13 @@ public class Entry
      * Überladener Konstruktor fuer Objekte der Klasse Entry (z.B. Objekterzeugung über CommandLine)
      */
     public Entry(double betrag, String kategorie, boolean einnahme,
-            String details)
+            String details, Date datum)
     {
         _betrag = (int) betrag;
         _kategorie = kategorie;
         _einnahme = einnahme;
         _details = details;
-        _datum = new Date();
+        _datum = datum;
     }
 
     /**
