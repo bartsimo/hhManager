@@ -18,8 +18,20 @@ public class EntryTest
     private static final String DETAILS = "Mehl teurer";
     private static final String DATUMSTRING = "17.03.2022";
     private static Date DATUM;
-    private static final String AUSGABESTRING = BETRAG + "    " + KATEGORIE
-            + "    " + EINNAHME + "    " + DETAILS + "   " + DATUM;
+    private static String AUSGABESTRING;
+    static
+    {
+        try
+        {
+            AUSGABESTRING = BETRAG + "    " + KATEGORIE + "    " + EINNAHME
+                    + "    " + DETAILS + "   " + convertDate(DATUMSTRING);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace(System.out);
+            AUSGABESTRING = null;
+        }
+    }
 
     private Entry _entry1;
 
