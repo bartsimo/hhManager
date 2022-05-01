@@ -144,7 +144,7 @@ public class HaushaltsBuch
         fw.close();
     }
 
-    //To do: Überladene Methode fuegeHinzu mit formalen Parametern schreiben, 
+    //TODO: Überladene Methode fuegeHinzu mit formalen Parametern schreiben, 
     //welche GUI Input direkt als aktuelle Parameter übergibt.
 
     /**
