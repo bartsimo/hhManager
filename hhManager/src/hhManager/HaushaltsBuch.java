@@ -66,6 +66,7 @@ public class HaushaltsBuch
      */
     public static LinkedList<Entry> leseCSV() throws Exception
     {
+        //TODO Zeile 71 in main methode?
         _buch = new HaushaltsBuch();
         Scanner sc = new Scanner(new File(getLastModified()));
         sc.useDelimiter(",");
@@ -176,7 +177,7 @@ public class HaushaltsBuch
         String details = sc.nextLine();
         entryObj.setzeDetails(details);
 
-        System.out.print("Wann geschah die Transaktion?");
+        System.out.print("Wann geschah die Transaktion? (Format: DD.MM.JJJJ");
         String str = sc.nextLine();
         Date datum = convertDate(str);
         entryObj.setzeDatum(datum);
@@ -263,9 +264,35 @@ public class HaushaltsBuch
                 }
             }
         }
+
         System.out.println(chosenFile.getAbsolutePath());
 
         return chosenFile.getAbsolutePath();
+    }
+
+    private static File getLastModifiedFile()
+    {
+        File directory = new File(
+                "/home/simon/eclipse-workspace/HaushaltsbuchCSVs");
+        File[] files = directory.listFiles(File::isFile);
+        long lastModifiedTime = Long.MIN_VALUE;
+        File chosenFile = null;
+
+        if (files != null)
+        {
+            for (File file : files)
+            {
+                if (file.lastModified() > lastModifiedTime)
+                {
+                    chosenFile = file;
+                    lastModifiedTime = file.lastModified();
+                }
+            }
+        }
+
+        System.out.println(chosenFile.getAbsolutePath());
+
+        return chosenFile;
     }
 
 }

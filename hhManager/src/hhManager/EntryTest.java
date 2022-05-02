@@ -19,6 +19,11 @@ public class EntryTest
     private static final String DATUMSTRING = "17.03.2022";
     private static Date DATUM;
     private static String AUSGABESTRING;
+    //    https://stackoverflow.com/questions/1028661/unhandled-exceptions-in-field-initializations
+    //        akf's answer is correct, but if you hate declaring new methods, you can also use 
+    //        static blocks to initialise your static variables; you can have try/catches within 
+    //        static blocks.
+
     static
     {
         try
